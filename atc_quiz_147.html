@@ -1,0 +1,344 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+  .w[data-theme="dark"]{--bg:#0a0e1a;--panel:#0f1526;--card:#141c30;--border:#1e2d4a;--accent:#00d4aa;--accent2:#0088ff;--ok:#00c47a;--err:#ff3d57;--text:#e8edf5;--muted:#6b7a9a;--fok-bg:rgba(0,196,122,0.12);--fok-bd:rgba(0,196,122,0.3);--fok-tx:#5de8ac;--fe-bg:rgba(255,61,87,0.1);--fe-bd:rgba(255,61,87,0.25);--fe-tx:#ff7b8e;--oh-bg:rgba(0,136,255,0.08);--oh-bd:#0088ff;--ok-bg:rgba(0,196,122,0.12);--er-bg:rgba(255,61,87,0.1);--bdg-bg:rgba(0,212,170,0.1);--bdg-bd:rgba(0,212,170,0.25);--mo-bg:rgba(5,8,20,0.88);--bc:#000;}
+  .w[data-theme="light"]{--bg:#f0f4f8;--panel:#fff;--card:#fff;--border:#d0d9e8;--accent:#007a5e;--accent2:#1a5fb4;--ok:#1e8a5e;--err:#c0362a;--text:#1a2233;--muted:#7a8aaa;--fok-bg:rgba(30,138,94,0.08);--fok-bd:rgba(30,138,94,0.3);--fok-tx:#155c3e;--fe-bg:rgba(192,54,42,0.07);--fe-bd:rgba(192,54,42,0.25);--fe-tx:#8b2218;--oh-bg:rgba(26,95,180,0.06);--oh-bd:#1a5fb4;--ok-bg:rgba(30,138,94,0.09);--er-bg:rgba(192,54,42,0.07);--bdg-bg:rgba(0,122,94,0.08);--bdg-bd:rgba(0,122,94,0.25);--mo-bg:rgba(30,40,60,0.55);--bc:#fff;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .w{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--border);direction:rtl;transition:background .3s,color .3s;position:relative;}
+  .hdr{background:var(--panel);border-bottom:1px solid var(--border);padding:11px 18px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;display:flex;align-items:center;gap:8px;}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .hr{display:flex;align-items:center;gap:8px;}
+  .tb{background:var(--card);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+  .tb:hover{border-color:var(--accent);color:var(--accent);}
+  .nav{display:flex;gap:4px;}
+  .nb{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+  .nb:hover{border-color:var(--accent);color:var(--accent);}
+  .nb.on{background:var(--accent);border-color:var(--accent);color:var(--bc);}
+  .qs{padding:22px;}
+  .stat{display:flex;justify-content:space-between;margin-bottom:16px;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);}
+  .pb{height:3px;background:var(--border);border-radius:2px;margin-bottom:22px;overflow:hidden;}
+  .pf{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .5s;border-radius:2px;}
+  .qb{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent);background:var(--bdg-bg);border:1px solid var(--bdg-bd);padding:3px 10px;border-radius:4px;letter-spacing:1px;margin-bottom:12px;}
+  .qt{font-size:18px;font-weight:600;line-height:1.5;color:var(--text);margin-bottom:8px;}
+  .qr{font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;margin-bottom:14px;}
+  .ob{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:500;padding:11px 14px;border-radius:8px;cursor:pointer;text-align:right;transition:all .18s;display:flex;align-items:center;gap:10px;direction:rtl;width:100%;margin-bottom:8px;}
+  .ob:hover:not(:disabled){border-color:var(--oh-bd);background:var(--oh-bg);}
+  .ob.correct{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);}
+  .ob.wrong{border-color:var(--err);background:var(--er-bg);color:var(--err);}
+  .ob.rev{border-color:var(--ok);background:var(--ok-bg);}
+  .ob:disabled{cursor:default;}
+  .ok{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);min-width:16px;text-align:center;}
+  .tg{display:flex;gap:12px;margin-top:6px;}
+  .tb2{flex:1;padding:16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:all .18s;text-align:center;}
+  .tb2.tt:hover:not(:disabled){border-color:var(--ok);background:var(--ok-bg);}
+  .tb2.tf:hover:not(:disabled){border-color:var(--err);background:var(--er-bg);}
+  .tb2.correct{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);}
+  .tb2.wrong{border-color:var(--err);background:var(--er-bg);color:var(--err);}
+  .tb2:disabled{cursor:default;}
+  .fb{margin-top:12px;padding:11px 14px;border-radius:8px;font-size:14px;line-height:1.6;display:none;}
+  .fb.show{display:block;}
+  .fb.correct{background:var(--fok-bg);border:1px solid var(--fok-bd);color:var(--fok-tx);}
+  .fb.wrong{background:var(--fe-bg);border:1px solid var(--fe-bd);color:var(--fe-tx);}
+  .nx{margin-top:14px;background:var(--accent);border:none;color:var(--bc);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;padding:10px 24px;border-radius:8px;cursor:pointer;display:none;transition:opacity .2s;}
+  .nx:hover{opacity:.85;}
+  .nx.show{display:block;}
+  .rs{padding:32px;text-align:center;display:none;}
+  .rsc{font-family:'Share Tech Mono',monospace;font-size:62px;font-weight:700;color:var(--accent);line-height:1;margin:12px 0;}
+  .rsl{font-size:13px;color:var(--muted);letter-spacing:2px;font-family:'Share Tech Mono',monospace;}
+  .rsm{font-size:20px;font-weight:600;margin:12px 0 24px;}
+  .reb{background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;padding:10px 28px;border-radius:8px;cursor:pointer;transition:all .2s;}
+  .reb:hover{background:var(--accent);color:var(--bc);}
+  .es{padding:18px;display:none;}
+  .eh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .et{font-size:17px;font-weight:700;}
+  .ab{background:var(--accent);border:none;color:var(--bc);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;border-radius:6px;cursor:pointer;}
+  .ql{display:flex;flex-direction:column;gap:6px;max-height:340px;overflow-y:auto;}
+  .qi{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 12px;display:flex;align-items:flex-start;gap:9px;transition:border-color .18s;}
+  .qi:hover{border-color:var(--accent2);}
+  .tyb{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 7px;border-radius:3px;letter-spacing:1px;flex-shrink:0;margin-top:2px;}
+  .mc-b{background:rgba(26,95,180,.12);color:var(--accent2);border:1px solid rgba(26,95,180,.3);}
+  .tf-b{background:var(--bdg-bg);color:var(--accent);border:1px solid var(--bdg-bd);}
+  .qit{font-size:13px;line-height:1.5;flex:1;}
+  .db{background:transparent;border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:4px;cursor:pointer;font-size:11px;transition:all .15s;flex-shrink:0;}
+  .db:hover{border-color:var(--err);color:var(--err);}
+  .xr{margin-top:12px;display:flex;gap:8px;}
+  .xb{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;transition:all .2s;}
+  .xb:hover{border-color:var(--accent);color:var(--accent);}
+  .mo{position:absolute;inset:0;background:var(--mo-bg);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .mo.open{display:flex;}
+  .mb{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;width:100%;max-width:460px;}
+  .mt{font-size:16px;font-weight:700;margin-bottom:16px;color:var(--accent);}
+  .fl{margin-bottom:12px;}
+  .fl-l{font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-bottom:5px;}
+  .fi,.fta,.fsel{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;padding:8px 11px;border-radius:6px;outline:none;transition:border-color .2s;direction:rtl;}
+  .fi:focus,.fta:focus,.fsel:focus{border-color:var(--accent);}
+  .fta{min-height:58px;resize:vertical;}
+  .ma{display:flex;gap:8px;margin-top:14px;justify-content:flex-end;}
+  .bc2{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:14px;padding:8px 16px;border-radius:6px;cursor:pointer;}
+  .sv{background:var(--accent);border:none;color:var(--bc);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;padding:8px 20px;border-radius:6px;cursor:pointer;}
+  .mr{display:flex;flex-direction:column;gap:6px;}
+  .mr-row{display:flex;gap:8px;align-items:center;}
+  .mr-row input[type=radio]{accent-color:var(--accent);flex-shrink:0;}
+  .mi{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:13px;padding:7px 10px;border-radius:5px;outline:none;direction:rtl;transition:border-color .2s;}
+  .mi:focus{border-color:var(--accent);}
+  .pw{padding:60px 32px;text-align:center;display:none;}
+  .pwt{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:8px;}
+  .pws{font-size:14px;color:var(--muted);margin-bottom:22px;}
+  .pwi{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:16px;padding:11px 16px;border-radius:8px;outline:none;text-align:center;letter-spacing:4px;width:220px;}
+  .pwi:focus{border-color:var(--accent);}
+  .pwb{margin-top:12px;background:var(--accent);border:none;color:var(--bc);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;padding:10px 28px;border-radius:8px;cursor:pointer;display:block;margin-left:auto;margin-right:auto;}
+  .pwe{color:var(--err);font-size:13px;margin-top:8px;display:none;}
+  .ql::-webkit-scrollbar{width:4px;}
+  .ql::-webkit-scrollbar-track{background:transparent;}
+  .ql::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+</style>
+<div class="w" data-theme="dark" id="root">
+  <div class="hdr">
+    <div class="logo"><div class="dot"></div>ACC NORTH — QUIZ SYSTEM</div>
+    <div class="hr">
+      <button class="tb" id="tbtn" onclick="toggleTheme()">☀</button>
+      <div class="nav">
+        <button class="nb on" id="n1" onclick="goQ()">חידון</button>
+        <button class="nb" id="n2" onclick="goEG()">ניהול שאלות</button>
+      </div>
+    </div>
+  </div>
+  <div class="qs" id="qs">
+    <div class="stat"><span id="qc"></span><span id="sc"></span></div>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <div class="qb" id="qb"></div>
+    <div class="qt" id="qt"></div>
+    <div class="qr" id="qr"></div>
+    <div id="oc"></div>
+    <div class="fb" id="fb"></div>
+    <button class="nx" id="nx" onclick="nextQ()">שאלה הבאה ←</button>
+  </div>
+  <div class="rs" id="rs">
+    <div class="rsl">FINAL SCORE</div>
+    <div class="rsc" id="rsc"></div>
+    <div class="rsm" id="rsm"></div>
+    <button class="reb" onclick="restartQuiz()">התחל מחדש</button>
+  </div>
+  <div class="pw" id="pw">
+    <div class="pwt">גישת מנהל</div>
+    <div class="pws">הכנס סיסמא לעריכת שאלות</div>
+    <input class="pwi" id="pwi" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')chkPW()">
+    <button class="pwb" onclick="chkPW()">כניסה</button>
+    <div class="pwe" id="pwe">סיסמא שגויה</div>
+  </div>
+  <div class="es" id="es">
+    <div class="eh"><div class="et">בנק שאלות (<span id="qcnt"></span>)</div><button class="ab" onclick="openM()">+ הוסף שאלה</button></div>
+    <div class="ql" id="ql"></div>
+    <div class="xr">
+      <button class="xb" onclick="expJ()">ייצוא JSON</button>
+      <button class="xb" onclick="document.getElementById('ii').click()">ייבוא JSON</button>
+      <input type="file" id="ii" accept=".json" style="display:none" onchange="impJ(event)">
+    </div>
+  </div>
+  <div class="mo" id="mo">
+    <div class="mb">
+      <div class="mt" id="mtitle">הוספת שאלה</div>
+      <div class="fl"><div class="fl-l">סוג</div>
+        <select class="fsel" id="mtype" onchange="togM()">
+          <option value="mc">Multiple Choice</option>
+          <option value="tf">נכון / לא נכון</option>
+        </select>
+      </div>
+      <div class="fl"><div class="fl-l">שאלה</div><textarea class="fta" id="mtxt" placeholder="טקסט..."></textarea></div>
+      <div id="mc-sec">
+        <div class="fl"><div class="fl-l">תשובות (סמן נכונה)</div>
+          <div class="mr">
+            <div class="mr-row"><input type="radio" name="cor" value="0"><input class="mi" placeholder="א'"></div>
+            <div class="mr-row"><input type="radio" name="cor" value="1"><input class="mi" placeholder="ב'"></div>
+            <div class="mr-row"><input type="radio" name="cor" value="2"><input class="mi" placeholder="ג'"></div>
+            <div class="mr-row"><input type="radio" name="cor" value="3"><input class="mi" placeholder="ד'"></div>
+          </div>
+        </div>
+      </div>
+      <div id="tf-sec" style="display:none">
+        <div class="fl"><div class="fl-l">תשובה נכונה</div>
+          <select class="fsel" id="mtf"><option value="true">נכון</option><option value="false">לא נכון</option></select>
+        </div>
+      </div>
+      <div class="fl"><div class="fl-l">סימוכין</div><input class="fi" id="mref" placeholder="מקור..."></div>
+      <div class="fl"><div class="fl-l">הסבר</div><textarea class="fta" id="mexp" placeholder="הסבר..."></textarea></div>
+      <div class="ma"><button class="bc2" onclick="closeM()">ביטול</button><button class="sv" onclick="saveQ()">שמור</button></div>
+    </div>
+  </div>
+</div>
+<script>
+const PW='acc2024';
+const questions = [{"type": "mc", "text": "אילו מהפרטים אין צורך למשוך מהטייס בעת חרום:", "options": ["חומרים מסוכנים", "מספר נפשות", "כמות הדלק", "משקל המטוס"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "מהו זע\"ט חרום כללי?", "options": ["7400", "7500", "7600", "7700"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "גבהי הירדנים מעל ה-TMA הם:", "options": ["11000-15000 בחלק המזרחי ו- 14000-16000 בחלק המערבי.", "11000-15000 בחלק המערבי ו- 14000-16000 בחלק המזרחי.", "בלוק תחתון 11000-12000 ובלוק עליון 14000-16000.", "עפ\"י תאום זמן אמיתי מול מרחבי 506."], "correct": 0, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "נתיבי הכניסה לנק' ZUKKO יגיעו ישירות מהנ\"צ שלהלן:", "options": ["מצפון VELOX או ZOMBA.", "מצפון AZERE וממערב PIKOG.", "ממערב PIKOG או APLON.", "מצפון ZOMBA וממערב LEDRA."], "correct": 1, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "מה ההפרדה האנכית הנדרשת ממטוס המשליך דלק:", "options": ["3000 רגל מעל ו-1000 רגל מתחת", "1000 רגל מעל ו-1000 רגל מתחת", "1000 רגל מעל ו-3000 רגל מתחת", "הפרדה תקנית המפורסמת ב-AIP"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "מה מהבאים אינו דרישה להפניית מטוסים צפונה לאחר המראה מב\"ג?", "options": ["המטוס מעל גובה 6000'", "המטוס מערבית לקו חוף", "המטוס מערבית ל- ORLEV", "המטוס נקי מתנועות נכנסות לב\"ג"], "correct": 2, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מתי אסור לבצע הפרדה אנכית רציפה?", "options": ["יותר מזוג מטוסים ואו יותר משני מוקדים בו זמנית", "במעגלי המתנה", "בזמן חירום או עבור מטוס חריג", "כל התשובות נכונות"], "correct": 3, "ref": "נוהל הפרדה אנכית רציפה", "exp": ""}, {"type": "mc", "text": "לפי כתב ההסכמה מול ב\"ג, מתחת לאיזה גובה ב\"ג רשאי לווקטר מטוסים דרומית לקו NINET-GODED?", "options": ["5000'", "6000'", "7000'", "9000'"], "correct": 2, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "כאשר סיד פצאל בשימוש:", "options": ["יש להגביל את ההמראות מעמאן לגובה מירבי 12,000׳ רגל.", "יש להגביל את ההמראות מעמאן לגובה מזערי 14,000׳ רגל", "יש להודיע לפיקוח עמאן על STOP AUTOMATIC RELEASE", "אין הגבלה על המרחב"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "בעת המראה מOJAI, באיזה גובה מזערי צריך המטוס לחצות את  MOUAB?", "options": ["10,000", "11,000", "12,000", "14,000"], "correct": 1, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "mc", "text": "מהו המשפט הנכון בנוגע לכ\"ה ניקוסיה:", "options": ["פקח DEP רשאי לקצר ללא תאום עם ניקוסיה לנק' STEPA/TEZAK כל עוד נשמרת ההפרדה בין היוצאים.", "המתנות בנק' PIKOG/AZERE/ZUKKO יבוצעו בגבהים FL270 ומעלה בפיקוח בקרת ניקוסיה.", "המתנות בנק' ZUKKO יבוצעו בגבהים FL200-5000' בבקרת פיקוח תל אביב ללא תאום מול בקרת ניקוסיה.", "כשירדנים סגור, בקרת ניקוסיה תנמיך טיסות ל-5 השדות הקרובים בירדן כך שיחצו את N71 בגובה FL330 או גבוה יותר."], "correct": 2, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "לפי כתב הסכמה בין בקרה צפון ליב\"א 506 מהם הגבהים של סיד פצאל?", "options": ["גובה 14-15 בין גילה לGOBRI ומGOBRI לפצאל גובה 15 ומעלה", "גובה 14-18 בין גילה לGOBRI ומGOBRI לפצאל גובה 18 ומעלה", "גובה 14-16 בין גילה לGOBRI ומGOBRI לפצאל גובה 16 מדויק", "אף תשובה לא נכונה"], "correct": 2, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "tf", "text": "בנתיב \"עוקף TMA\" בים תשמר הפרדה אנכית מזערית של 1500 רגל בין מטוס אזרח לכטמ\"מ הטס בגובה 3500 רגל.", "correct": true, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "מתי לא ניתן לעשות הפרדות RVSM?", "options": ["כאשר התמונ\"א לא יציבה", "כאשר יש MODERATE ICING", "כאשר יש SEVERE TURBULENCE", "בהנחיית רמ\"ש"], "correct": 2, "ref": "נוהל RVSM", "exp": ""}, {"type": "mc", "text": "לפי כתב הסכמה עם ב\"ג מהי ההפרדה האופקית אחרי מטוס ממריא לSUVAS?", "options": ["10 מייל ואם ההפרדה האופקית קטנה מ-10NM ו/או המטוס האחורי מהיר מהקדמי, המרשה שיינתן למטוס האחורי יהיה לגובה פנוי.", "8 מייל ואם ההפרדה האופקית קטנה מ-8NM ו/או המטוס האחורי מהיר מהקדמי, המרשה שיינתן למטוס האחורי יהיה לגובה פנוי.", "7 מייל ואם ההפרדה האופקית קטנה מ-7NM ו/או המטוס האחורי מהיר מהקדמי, המרשה שיינתן למטוס האחורי יהיה לגובה פנוי.", "אף תשובה לא נכונה"], "correct": 1, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מהם זע\"טי החירום?", "options": ["7500- מטוס בחירום, 7600- מטוס באובדן קשר, 7700- מטוס חטוף", "7600- מטוס בחירום, 7700- מטוס באובדן קשר, 7500- מטוס חטוף", "7700- מטוס בחירום, 7600- מטוס באובדן קשר, 7500- מטוס חטוף", "7700- מטוס בחירום, 7500- מטוס באובדן קשר, 7600- מטוס חטוף"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "מהי ההפרדה הנדרשת בין זוג מטוסים מאושרים RVSM מעל גובה '41 ?", "options": ["'1000", "'2000", "'4000", "בהתאם לCLASS של המרחב המדובר"], "correct": 1, "ref": "", "exp": ""}, {"type": "mc", "text": "מהי המהירות המוצגת בתמונ\"א?", "options": ["GS", "IAS", "TAS", "CAS"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "מתי ניתן לשמור מהירות גבוהה (מעל 250) בסיקוונס לנתב\"ג?", "options": ["כשהמטוס הוא הראשון בתוך סיקוונס נכנסים וזה שלפניו שווה ביצועים", "כשהדבר מאושר בהוראות החברה ותנאי מזג האוויר מאפשרים", "כשהמטוס לפחות 30 מייל מהמטוס הקודם ששוחרר בסיקוונס", "כשלא נראה במכ\u05d3\u05dcu05d3 מטוס נכנס לפניו בטווח הקטן מ20 מייל"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "בעת שמטוס מדווח שהוא נושא בבטנו חומרים מסוכנים, מה צריך הפקח לשאוב מהטייס?", "options": ["כמות חומרים מסוכנים (בק\u05d3\u05dcg)", "מספר UN של החומרים המסוכנים", "שם מלא של החומרים המסוכנים", "כל התשובות נכונות"], "correct": 1, "ref": "", "exp": ""}, {"type": "mc", "text": "מהו הגובה המפריד בין הסקטור הגבוה לנמוך במרחב ירדן?", "options": ["FL255", "FL325", "FL235", "FL295"], "correct": 0, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "mc", "text": "מהו הגובה המפריד בין הסקטור הגבוה לסקטור הדרומי בניקוסיה?", "options": ["FL325", "FL335", "FL345", "FL355"], "correct": 2, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "תמונת הקמברידג׳ מציגה מידע ממכ״מ -", "options": ["מכ״מ ASR10", "מכ״מ MSSR2", "מכ״מ INDRA", "רקיע כחול"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "מרחב RVSM מוגדר בין הגבהים-", "options": ["מעל גובה FL280 ומתחת לגובה FL410", "מעל גובה FL290 ומתחת לגובה FL400", "בין הגבהים FL290-FL410 כולל", "בין הגבהים FL280-FL410 כולל"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "מהי ההפרדה המינימלית בין שני מטוסים בדרך לנחיתה בנתב״ג על STAR GODED2?", "options": ["10 מייל, 8 מייל בזמן עוצר לילה", "12 מייל, 8 מייל בזמן עוצר לילה", "10 מייל, 9 מייל בזמן עוצר לילה", "12 מייל, 9 מייל בזמן עוצר לילה"], "correct": 3, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מהי ההפרדה המינימלית בין שני מטוסים בדרך לנחיתה על STAR AMMOS1A/B", "options": ["10 מייל למסלול 21, 12 מייל למסלול 26", "10 מייל", "12 מייל", "10 מייל למסלול 26, 12 מייל למסלול 21"], "correct": 0, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מהו גובה ברירת המחדל בSIVAK למטוסים הטסים מפיקוח תל אביב לבקרה דרום אשר יעדם נבטים?", "options": ["11000 רגל", "15000 רגל", "גובה שיוט", "יש לתאם בשדה COL בEFS."], "correct": 1, "ref": "כתב הסכמה דרום", "exp": ""}, {"type": "mc", "text": "מהו גובה ברירת המחדל בSIVAK למטוסים הטסים מפיקוח תל אביב לבקרה דרום אשר יעדם אילת רמון?", "options": ["15000 רגל", "29000 רגל", "FL290", "גובה שיוט"], "correct": 1, "ref": "כתב הסכמה דרום", "exp": ""}, {"type": "mc", "text": "פיקוח תל אביב יעביר למגדל חיפה ETA  לGALIM של מטוס הנכנס לנחיתה בחיפה:", "options": ["לפחות 10 דק׳ לפני הגעה לנקודה GALIM", "לפחות 5 דק׳ לפני הגעה לנקודה GALIM", "לפחות 4 דק׳ לפני הגעה לנקודה GALIM", "לפחות 30 דק׳ לפני הגעה לנקודה GALIM"], "correct": 2, "ref": "כתב הסכמה חיפה", "exp": ""}, {"type": "mc", "text": "בעת קבלת Release מפיקוח תל אביב להמראת מטוס משד״ת חיפה, מהו תוקפו של הRelease?", "options": ["15 דק׳", "10 דק׳", "5 דק׳", "ללא הגבלת זמן"], "correct": 1, "ref": "", "exp": ""}, {"type": "mc", "text": "תנועה הממריאה מחצור אל מרחב ניקוסיה תתואם ע״י יב״א 509 לנקודה NILVI בגובה:", "options": ["8000 רגל", "20,000 רגל", "5000 רגל", "6000 רגל"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "תנועה בדרכה לנחיתה בחצור מפיקוח תל אביב תתואם ליב״א 509 לנקודה NILVI בגובה:", "options": ["5000 רגל", "7000 רגל", "9000 רגל", "11000 רגל"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "כאשר NAT SHORTCUT שייך לACC, איזה גובה מזערי יש לשמור בחלק שמערבית לVOR NAT?", "options": ["17,000 רגל", "15,000 רגל", "19,000 רגל", "11,000 רגל"], "correct": 2, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "באילו גבהים יטוסו כטב״מים באיזור 502?", "options": ["9,000-13,000 רגל", "11,000-12,000 רגל", "10,000-12,000 רגל", "10,000-13,000 רגל"], "correct": 1, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "כאשר איזור 502 בשימוש אילו גבהים אסורים לשימוש עבור תעופה אזרחית?", "options": ["9,000-13,000 רגל", "11,000-12,000 רגל", "10,000-12,000 רגל", "10,000-13,000 רגל"], "correct": 0, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "טיסת VFR בינ״ל אשר יעדה נתב״ג תצטרף דרך:", "options": ["הSTAR שבשימוש", "הנקודה ATLIT ומעבר קשר ליב״א 506", "הנקודה ESHKOL ומעבר קשר ליב״א 509", "הנקודה חדרה ומעבר קשר ליב״א 506"], "correct": 3, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "כאשר איזורי ים בשימוש ע״י חיל האוויר נודיע לניקוסיה:", "options": ["LCD46 HOT", "LCD46 ACTIVE", "LCD46 IN USE", "LCD46 COLD"], "correct": 1, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "גובה הפסגה של הר מירון:", "options": ["1208 מטרים", "1210 מטרים", "1204 מטרים", "1206 מטרים"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "איזו משימה הינה בעדיפות גבוהה יותר לביצוע פקח מסייע?", "options": ["תיאום", "גיבוי, התרעה ובטיחות", "תכנון", "ניהול עומס העבודה בסקטור"], "correct": 0, "ref": "נוהל מסייע", "exp": ""}, {"type": "tf", "text": "לאחר ביצוע תיאום גובה עם יחידה שכנה, יזין פקח מסייע את הגובה המאושר תחת האות \"T\".", "correct": false, "ref": "נוהל מסייע", "exp": ""}, {"type": "mc", "text": "___ ____ הינו מצב בו משימת ה\"גיבוי, התרעה ובטיחות\" עולה לראש סדר", "options": ["העדיפויות של הפקח המסייע.", "מוד בטיחות", "מוד פוקוס", "TLV OVERLOAD"], "correct": 2, "ref": "נוהל מסייע", "exp": ""}, {"type": "mc", "text": "על מנת לשמור על כשירות בעמדת הרדיו או עמדת המסייע יש לבצע:", "options": ["4 שעות ב45 ימים", "6 שעות ב45 ימים", "8 שעות ב45 ימים", "2 שעות ב45 ימים"], "correct": 1, "ref": "", "exp": ""}, {"type": "mc", "text": "על מנת לשמור על כשירות בעמדת הVDU יש לבצע:", "options": ["4 שעות ב45 ימים", "6 שעות ב45 ימים", "8 שעות ב45 ימים", "2 שעות ב45 ימים"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "תנועה משוחררת מניקוסיה בFL310  מוגדרת נקייה לפניה:", "options": ["עד 30 מעלות", "עד 45 מעלות", "עד 90 מעלות", "עד 75 מעלות"], "correct": 1, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "תנועה משוחררת מניקוסיה בFL200 מוגדרת נקייה לפניה:", "options": ["עד 30 מעלות", "עד 45 מעלות", "עד 90 מעלות", "בכל כיוון כל עוד נקי מתנועות אחרות"], "correct": 3, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "בזמן שימוש בILS26 הSTAR בשימוש יהיה:", "options": ["AMMOS1A/B", "AMMOS1C/D", "AMMOS2A/B", "AMMOS2C/D"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "הפרדת WAKE TURBULANCE ממטוס מקטגוריה  SUPER (קדמי) למטוס מקטגוריה HEAVY (אחורי) הינה:", "options": ["5 מייל", "6 מייל", "7 מייל", "8 מייל"], "correct": 1, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "הפרדת WAKE TURBULANCE ממטוס מקטגוריה SUPER (קדמי) למטוס מקטגוריה MEDIUM (אחורי) הינה:", "options": ["5 מייל", "6 מייל", "7 מייל", "8 מייל"], "correct": 2, "ref": "ספר מכמ", "exp": ""}, {"type": "tf", "text": "מטוס המשוחרר מפיקוח עמאן לפיקוח תל אביב משוחרר רק לטיפוס וחל איסור להפנותו טרם כניסתו למרחב פיקוח תל אביב.", "correct": true, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "mc", "text": "הסטייה המותרת בקריאת מוד גובה בגובה 21,000 רגל:", "options": ["150 רגל", "200 רגל", "300 רגל", "500 רגל"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "הסטייה המותרת בקריאת מוד גובה במרחב RVSM הינה:", "options": ["150 רגל", "200 רגל", "300 רגל", "500 רגל"], "correct": 1, "ref": "", "exp": ""}, {"type": "tf", "text": "בקשת קוד עבור מטוס ממריא למרחב יורוקונטרול דרך מערכת הCCAMS נקראת הודעת COR -Code Request", "correct": true, "ref": "", "exp": ""}, {"type": "tf", "text": "קרנף של צבא איטליה רשאי לנחות על מסלול 21 על אף היותו בעל 4 מנועים משום שהוא טיסה צבאית", "correct": true, "ref": "כתב הסכמה נתב״ג", "exp": ""}, {"type": "tf", "text": "מטוס המגדיר Minimum Fuel מוגדר כמטוס בחירום ויקבל עדיפות בסיקוונס הנחיתה", "correct": false, "ref": "", "exp": ""}, {"type": "tf", "text": "מטוסים אשר יעדם OJAI חייבים לחצות את N71 בFL330 ומטה בכל עת.", "correct": false, "ref": "", "exp": ""}, {"type": "tf", "text": "בעת ביצוע HANDOFF בין סקטורים, הפקח המקבל יעשה ACCEPT רק לאחר קריאת המטוס בקשר.", "correct": true, "ref": "", "exp": ""}, {"type": "tf", "text": "פקח הרדיו יזין מרשה מהירות למטוס בשדה הזנת המהירות בDATABLOCK בלבד", "correct": false, "ref": "נוהל רדיו", "exp": ""}, {"type": "tf", "text": "פקח הVDU אינו נדרש להזין לIODS תנועה ממערב אשר יעדה OJAI,OJAM,OJKA,OJMS,OJHF", "correct": true, "ref": "נוהל VDU", "exp": ""}, {"type": "tf", "text": "בעת ש״איזורי ים״ (LCD46) שייך לפיקוח תל אביב ובזמן עבודה בשני סקטורים, DAFNA AREA שייך לעמדת הARRIVAL", "correct": true, "ref": "נוהל סקטורים", "exp": ""}, {"type": "mc", "text": "שני מטוסים משייטים בFL370 בכיוון מזרח. המרחק בינהם הוא 6 מייל והמהירויות הן: 450 קשר למטוס הקדמי ו470 קשר למטוס האחורי. תוך כמה זמן לא תתקיים הפרדת מכ״מ?", "options": ["כ-2 דק׳", "כ-4 דק׳", "כ-6 דק׳", "ההפרדה לא תופר משום שהיא רק תגדל."], "correct": 1, "ref": "חשבון פשוט", "exp": ""}, {"type": "mc", "text": "כמה עולה פחית קולה בשקם בקרה צפון?", "options": ["3 שקלים", "4 שקלים", "5 שקלים", "6 שקלים"], "correct": 1, "ref": "וובה", "exp": ""}, {"type": "mc", "text": "מה הקוד של הסוזוקי האפורה, עליה השלום?", "options": ["1331", "0609", "9506", "0401"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "מה ראשי התיבות של ״זיקה״ (במלעיל)?", "options": ["זיהוי קרוב היטס", "זיהוי קרב היקפי", "זמיר יכול קרוב היטב", "לא מדובר בראשי תיבות אלא בשם."], "correct": 3, "ref": "נירש", "exp": ""}, {"type": "mc", "text": "בעת המראה מOJAI, באיזה גובה מזערי צריך המטוס לחצות את  TALMI?", "options": ["10,000 רגל", "11,000 רגל", "12,000 רגל", "14,000 רגל"], "correct": 2, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "mc", "text": "בSTAR GODED2, מה הוא הגובה המירבי בנקודה NINET?", "options": ["10,000 רגל", "9,000 רגל", "11,000 רגל", "8,000 רגל"], "correct": 1, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR GODED2, באיזו נקודה מהנקודות הבאות אין HOLD מפורסם?", "options": ["GODED", "DIRAN", "NINET", "KONFO"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR GODED2, מה הוא הגובה המירבי בנקודה DIRAN?", "options": ["9,000 רגל", "8,000 רגל", "7,000 רגל", "5,000 רגל"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR AMMOS1A/B, מהו הגובה המירבי בנקודה AMMOS?", "options": ["10,000 רגל", "9,000 רגל", "8,000 רגל", "7,000 רגל"], "correct": 1, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR AMMOS1A/B, מהו הגובה המירבי בנקודה VETEK?", "options": ["10,000 רגל", "9,000 רגל", "8,000 רגל", "7,000 רגל"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR AMMOS1A/B, מהו הגובה המירבי בנקודה DIVLA?", "options": ["10,000 רגל", "9,000 רגל", "8,000 רגל", "7,000 רגל"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR AMMOS1A/B, באיזו נקודה מהנקודות הבאות אין HOLD מפורסם? ?", "options": ["KONFO", "AMMOS", "VETEK", "DIVLA"], "correct": 1, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSID DAFNA1E, מה הוא הגובה המזערי בYUVAL?", "options": ["10,000 רגל", "11,000 רגל", "12,000 רגל", "8,000 רגל"], "correct": 0, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSID DAFNA1E, מה הוא הגובה המזערי בJILET?", "options": ["10,000 רגל", "11,000 רגל", "12,000 רגל", "14,000 רגל"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSID SUVAS1E, מה הוא הגובה המזערי בSUVAS?", "options": ["5,000 רגל", "6,000 רגל", "8,000 רגל", "10,000 רגל"], "correct": 0, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSID DAFNA1E, באיזו נקודה יתחיל המטוס פניה צפונה?", "options": ["TAPUZ", "KESEF", "ORLEV", "YUVAL"], "correct": 1, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "איך נקראת הנקודה שנמצאת בין TALMI לMOUAB?", "options": ["RALNA", "OSAMA", "MALUQ", "MUVIN"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "איך נקראת הנקודה בין SALAM לOSAMA?", "options": ["RALNA", "MOUAB", "MUVIN", "MALUQ"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "מהו הגובה המינימלי שניתן להמתין בZAHAV על GALIM1A?", "options": ["2,600 רגל", "3,000 רגל", "5,000 רגל", "אין HOLD מפורסם בZAHAV"], "correct": 1, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "בSTAR GALIM1A/B על המטוס לחצות את MERVA:", "options": ["בגובה מזערי 5,000", "בגובה מירבי 5,000", "ללא מגבלה", "בגובה 5,000 מדויק"], "correct": 3, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "מה גובה הTransition altitude?", "options": ["FL180", "18,000 רגל", "FL200", "20,000 רגל"], "correct": 1, "ref": "", "exp": ""}, {"type": "mc", "text": "מה גובה הTransition level?", "options": ["FL180", "18,000 רגל", "FL200", "20,000 רגל"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "לפי AIP ISRAEL, מטוס צריך להקטין מהירות ל250 קשר מתחת לגובה 10,000 רגל למעט:", "options": ["מטוס חייב תמיד להוריד מהירות ל250 קשר מתחת ל10,000 רגל", "מטוסים הנכנסים לנתב״ג ממערב לפני חציית 25 מייל מBGN DME", "במידה ונהלי החברה מאפשרים מטוס יכול לשמור מהירות גבוהה מ250 קשר מתחת לגובה 10,000 רגל", "מותר לשמור מהירות גבוהה מ250 קשר מתחת לגובה 10,000 כל עוד אין מטוס ב20 מייל שלפניו"], "correct": 1, "ref": "AIP", "exp": ""}, {"type": "mc", "text": "באיזה CLASS פועל מרחב בקרה צפון?", "options": ["CLASS A", "CLASS C", "CLASS A + C", "CLASS A + B + C"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "בSID SUVAS1C, מהו הגובה המזערי בנקודה SUVAS?", "options": ["5,000 רגל", "6,000 רגל", "8,000 רגל", "10,000 רגל"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "ֿנקודה BG123 שייכת לגישת:", "options": ["ILS30", "ILS26", "ILS12", "ILS 08"], "correct": 2, "ref": "דפית", "exp": ""}, {"type": "mc", "text": "לאחר איזו נקודה אפשר לשנות קוד למטוס שמגיע מACC AMMAN לכיוון מערב?", "options": ["RALNA", "TALMI", "MOUAB", "MUVIN"], "correct": 2, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "mc", "text": "מהי ההפרדה האורכית הנדרשת בין שני מטוסים בדרכם לנחיתה בOJAI בעת מעבר קשר בSALAM?", "options": ["5 מייל", "10 מייל", "15 מייל", "20 מייל"], "correct": 1, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "mc", "text": "מהי ההפרדה האורכית הנדרשת בין שני מטוסים בדרכם לנחיתה בOJAI בעת מעבר קשר בSALAM בהינתן שהמטוס האחורי מהיר מהקדמי?", "options": ["5 מייל", "10 מייל", "15 מייל", "20 מייל"], "correct": 2, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "tf", "text": "מטוס ששוחרר לACC AMMAN לקראת SALAM יהיה נקי להנמכה בתנאי שיחצה את SALAM בגובה 11,000 רגל ומעלה", "correct": true, "ref": "כתב הסכמה עמאן", "exp": ""}, {"type": "tf", "text": "כאשר המכלול מאוייש ע״י שלושה פקחים  ומאמת, האחריות על ביצוע טעינת נתונים למערכת הATMAS חלה על המאמת", "correct": false, "ref": "", "exp": ""}, {"type": "mc", "text": "מטוס אשר יבצע ריתוק בנקודות DIRAN/VETEK בגובה 8000׳ יהיה בקשר עם:", "options": ["נתב״ג", "בקרה צפון"], "correct": 1, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מטוס בדרכו לנחיתה בנתב״ג ישוחרר מניקוסיה בהנמכה לגובה ___ בדרכו לPIKOG", "options": ["FL210", "FL250", "FL270", "FL310"], "correct": 0, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "מטוס בדרכו לנחיתה בנתב״ג ישוחרר מניקוסיה בהנמכה לגובה ____ בדרכו לAZERE", "options": ["FL210", "FL250", "FL270", "FL310"], "correct": 2, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "tf", "text": "אין סיבה לעדכן את בקרת ניקוסיה בעת שמרחב ירדנים נפתח/נסגר משום שזה לא נוגע לתנועות שלהם", "correct": false, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "איך נקראת נקודת הכניסה לFIR BEIRUT?", "options": ["LAKTO", "ANANE", "KALDE", "ELIKA"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "מהי הפרדת WAKE TURBULANCE הנדרשת בין SUPER ל SUPER?", "options": ["לא נדרשת", "4 מייל", "5 מייל", "6 מייל"], "correct": 0, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "מהי הפרדה WAKE TURBULANCE הנדרשת בין לMEDIUM קדמי לHEAVY אחורי?", "options": ["לא נדרשת", "3 מייל", "4 מייל", "5 מייל"], "correct": 0, "ref": "ספר מכמ", "exp": ""}, {"type": "tf", "text": "כאשר המכלול מאוייש ע״י שני פקחים (רדיו ומסייע) ומאמת, האחריות על ביצוע טעינת נתונים למערכת הATMAS חלה על המאמת", "correct": true, "ref": "", "exp": ""}, {"type": "mc", "text": "בגבהים FL290-FL410 כל שינוי של 0.01 במהירות מאך יוביל לשינוי במהירות הקרקעית בקשר של כ:", "options": ["כ3-4 קשרים", "כ5-6 קשרים", "כ7-8 קשרים", "כ9-10 קשרים"], "correct": 1, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "איזה סקטור בניקוסיה יש לעדכן בעת ש״ירדנים סגור״?", "options": ["High Sector", "West Sector", "South Sector", "East Sector"], "correct": 2, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "במידה ולא ניתן לספק 10 מייל בין מטוסים עוקבים לניקוסיה ישׁ:", "options": ["לתאם טלפונית את ההפרדה שתבוצע", "לעשות Parallel tracks", "להפריד 1000׳ רגל בין שני המטוסים", "יהיה בסדר"], "correct": 2, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "איזה סקטור בניקוסיה יש לעדכן בעת ש״LCD46 is active״?", "options": ["High Sector", "West Sector", "South Sector", "East Sector"], "correct": 3, "ref": "כתב הסכמה ניקוסיה", "exp": ""}, {"type": "mc", "text": "חידשתם תעודה רפואית, למי שולחים את הקבלות ואת התעודה החדשה?", "options": ["accnkshirut@gmail.com", "accnhadracha@gmail.com", "שניהם", "לבבלי"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "טיסות מנבטים ימריאו בAUTOMATIC RELEASE לפי כתב ההסכמה עם בקרה דרום", "options": ["נכון", "לא נכון", "רק למטוסים אזרחיים"], "correct": 1, "ref": "כתב הסכמה דרום", "exp": ""}, {"type": "mc", "text": "מהו הגובה המינימלי לביצוע FUEL DUMP?", "options": ["3000 רגל", "5000 רגל", "6000 רגל", "10000 רגל"], "correct": 2, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "איזה מונח אינו חלק מנדב״ר AVOIDING ACTION?", "options": ["ALTITUDE/LEVEL", "HEADING", "TO AVOID", "IMMEDIATELY"], "correct": 0, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "מטוס אשר אינו מפעיל Transponder בהכרח לא ייקלט ע״י מכ״מ", "options": ["PSR", "SSR", "GBAS", "SMR"], "correct": 1, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "זיהוי מכ״מ על בסיס צפיה במטוס ממריא במרחק של עד 1 מייל מקצה המסלול כאשר ידוע שהוא היה אמור להמריא - שיטת זיהוי של מכמ:", "options": ["PSR", "SSR", "MLAT", "SMR"], "correct": 0, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "מהי הפרדת WAKE TURBULANCE הנדרשת בין HEAVY לHEAVY?", "options": ["לא נדרשת", "4 מייל", "5 מייל", "6 מייל"], "correct": 1, "ref": "ספר מכמ", "exp": ""}, {"type": "mc", "text": "כמה הפרדה יש לספק מכטב״מ החוצה מצפון לדרום בדרכו לגילה?", "options": ["1000 רגל", "1500 רגל", "2000 רגל", "תלוי אם זה כטב״מ אזרחי או לא"], "correct": 2, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "העברת קוד למטוס הממריא מעמאן לנתב״ג תתבצע ע״י:", "options": ["נתב״ג", "פיקוח תל אביב", "מתקבל בעמאן אוטומטית", "האימות הביטחוני"], "correct": 1, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "האחריות על הקצאת קודים למטוס הממריאים מנתב״ג חלה על:", "options": ["נתב״ג", "פיקוח תל אביב", "ניקוסיה", "מה שבא ברוך הבא"], "correct": 0, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מהי הפרדת המכמ המזערית שעל פיקוח תל אביב לשמור מהגבול המשותף בין נתב״ג לפיקוח תל אביב?", "options": ["2.5 מייל", "3 מייל", "5 מייל", "אין הפרדה כי אין ממשק"], "correct": 0, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "מאיזה גובה מותר לפיקוח נתב״ג להפנות תנועה הנמצאת בגזרה ה״צפונית״?", "options": ["7000 רגל", "8000 רגל", "9000 רגל", "10000 רגל"], "correct": 2, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "גישת NAMIM היא גישה למסלול:", "options": ["12", "21", "26", "30"], "correct": 1, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "VETEK1A מוביל למסלול:", "options": ["12", "21", "26", "30"], "correct": 3, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "במה שונה AMMOS1A מAMMOS1B", "options": ["גובה מזערי בVETEK", "גובה מזערי בDIVLA", "מהירות בVETEK", "אין תשובה נכונה"], "correct": 3, "ref": "דפיות", "exp": ""}, {"type": "mc", "text": "באיזה STAR ננמיך לגובה 6000׳ ולא לגובה 5000׳?", "options": ["AMMOS1A", "PURLA1", "VETEK1A", "GODED2"], "correct": 2, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "כמה הפרדה יש לספק לנתב״ג בין מטוס קדמי לILS21 לבין מטוס אחורי לRNP21?", "options": ["8 מייל", "10 מייל", "12 מייל", "15 מייל"], "correct": 3, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "tf", "text": "״מטוס ראשון בשיירה״, עפ״י כתב ההסכמה עם נתב״ג, מתייחס למטוס אשר אין לפניו מטוס לפחות כ20 מייל", "correct": false, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "tf", "text": "שפת התיאום, עפ״י כתב ההסכמה עם נתב״ג, תהיה באנגלית", "correct": false, "ref": "כתב הסכמה נתבג", "exp": ""}, {"type": "mc", "text": "עפ״י כתב ההסכמה מול יבא 506, בכל שינוי במצב התשתיות ע״י 506 יעשה לפחות _____ דק׳ לפני כניסת מטוסי ח״א לתשתית.", "options": ["5", "8", "10", "15"], "correct": 2, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "על פיקוח תל אביב לספק הפרדה של __ מיילים מגבולות איזורי האימון של ח״א בים ומדרך הים?", "options": ["2.5", "3", "5", "10"], "correct": 2, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "בעת שNAT SHORTCUT שייך לפיקוח תל אביב על יב״א 506 לספק הפרדה מגבול האיזור של כ:", "options": ["ללא הפרדה, יכולים לטוס עד גבול האיזור", "2.5 מייל", "3 מייל", "5 מייל"], "correct": 3, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "עפ״י ICAO וספר המכ״מ, איך באמת צריך לומר?", "options": ["Radar Contact", "Identified", "שתי התשובות נכונות"], "correct": 2, "ref": "doc 4444 ch. 12 & Radar handbook", "exp": ""}, {"type": "mc", "text": "כשמתבצע תהליך De-icing בנתב״ג, כמה מייל בין ממריאים נצפה לראות?", "options": ["מעל 10 מייל", "5-10 מייל", "אין הבדל מאופרציה רגילה", "אין De-icing בנתב״ג"], "correct": 3, "ref": "", "exp": ""}, {"type": "mc", "text": "מטוס מקטגוריה Light הוא מטוס שמשקל ההמראה המירבי שלו הוא:", "options": ["136,000 ק״ג ומטה", "10,000 ק״ג ומטה", "7,000 ק״ג ומטה", "5,600 ק״ג ומטה"], "correct": 2, "ref": "ספר המכמ", "exp": ""}, {"type": "mc", "text": "טווח הקליטה של הPrimary של הASR10 הוא בערך:", "options": ["30 מייל מנתב״ג", "60 מייל מנתב״ג", "120 מייל מנתב״ג", "250 מייל מנתב״ג"], "correct": 1, "ref": "החיים", "exp": ""}, {"type": "mc", "text": "איזה רכיב של מערכת הILS הוא חיוני לביצוע גישת ILS ולא ניתן לבצע את הגישה בלעדיו?", "options": ["Localizer", "Glide Slope", "DME", "כולם"], "correct": 0, "ref": "", "exp": ""}, {"type": "tf", "text": "פקח הVDU יאשר Release למטוס הממריא מחיפה", "correct": false, "ref": "", "exp": ""}, {"type": "mc", "text": "על האימות הביטחוני להודיע לקומת הגנה אווירית על מטוסס ממערב או מצפון שלא השלים את תהליך האימות הביטחוני עד טווח של:", "options": ["120 מייל", "140 מייל", "160 מייל", "180 מייל"], "correct": 1, "ref": "כתב הסכמה 506", "exp": ""}, {"type": "mc", "text": "בעת שמתאמים תנועה ליב״א 509 לנקודה NILVI בשעות הלילה (חצות עד 06:00) יש לתאם את התנועה כ:", "options": ["5 דק׳ לפני NILVI", "10 דק׳ לפני NILVI", "15 דק׳ לפני NILVI", "20 דק׳ לפני NILVI"], "correct": 3, "ref": "כתב הסכמה 509", "exp": ""}, {"type": "mc", "text": "איזו מבין המשימות הבאת מוגדרת בתחתית סדר העדיפויות של פקח מסייע?", "options": ["תכנון", "תיאום", "ניהול עומס העבודה בסקטור שבאחריותו", "גיבוי, התרעה ובטיחות"], "correct": 0, "ref": "נוהל פקח מסייע", "exp": ""}, {"type": "mc", "text": "האם פקח הVDU רשאי לבצע תיאומים אוויריים?", "options": ["כן", "לא", "רק במידה והתבקש ע״י פקח מסייע/רדיו", "רק כאשר פתוחים לפחות שני סקטורים"], "correct": 2, "ref": "נוהל פקח VDU", "exp": ""}, {"type": "mc", "text": "מתי צריך פקח הVDU להודיע לפקח המסייע על טיסות חוצות בFL330 ומעלה?", "options": ["בכל עת", "אף פעם", "אך ורק כש״ירדנים״ סגור", "בימים א׳-ה׳ בשעות 0730-1730 זמן מקומי בלבד"], "correct": 2, "ref": "נוהל פקח VDU", "exp": ""}, {"type": "mc", "text": "באילו מקרים חייב פקח VDU להודיע לפקח המסייע על טיסות חוצות?", "options": ["כש״ירדנים״ סגור", "מתחת לFL330", "תשובות א׳+ב׳ נכונות", "באף אחד מהמקרים"], "correct": 2, "ref": "נוהל פקח VDU", "exp": ""}, {"type": "mc", "text": "מתי תפוג תוקפה של תעודה רפואית לעובד טייס?", "options": ["בהתרחש תאונה אווירית", "עם תחילת אישפוז בבית חולים", "בתום היום ה15 להיעדרות רצופה מהעבודה עקב מחלה", "כל התשובות נכונות"], "correct": 3, "ref": "תקנות הטיס (רשיונות לעובדי טיס), תשמ\"א-1981", "exp": ""}, {"type": "mc", "text": "איפה את/ה מעדיפ/ה לעשות סימולטור?", "options": ["NAV CANADA", "SKYGUIDE", "DFS", "הסימולטור של אורן גיא"], "correct": 0, "ref": "המציאות", "exp": ""}, {"type": "mc", "text": "איך נקראת ״סגירת הרוסים״?", "options": ["LCD 54", "LCD 47", "LCD 45", "LCD 53"], "correct": 0, "ref": "", "exp": ""}, {"type": "mc", "text": "מתי יעביר פקח הVDU את סטריפ טיסה ממריאה מחיפה לפקח הרדיו/מסייע?", "options": ["לאחר שנקלט קוד עבור הטיסה בסטריפ", "לאחר שהקוד הועבר למגדל חיפה", "לאחר שהקוד הוקלד לATMAS", "בעת אישור Release למטוס"], "correct": 1, "ref": "נוהל VDU", "exp": ""}, {"type": "tf", "text": "לפי AIP ישראל, נתב״ג סגור לנחיתות בכל יום בין 01:00 ל02:00 זמן מקומי.", "correct": true, "ref": "AIP נתבג", "exp": ""}, {"type": "mc", "text": "עפ״י AIP ישראל, במקרה של תקלת קשר למטוס שמגיע לנחיתה ועדיין לא ניתן לו STAR, המטוס יבצע:", "options": ["GODED2 ILS 12", "VETEK1A ILS 30", "AMMOS1A ILS 21", "AMMOS1A ILS 26"], "correct": 3, "ref": "AIP נתבג", "exp": ""}, {"type": "mc", "text": "האם מטוס בעל 3 מנועים יכול לנחות על מסלול 21 בכל עת?", "options": ["לא", "כן", "כן, בתנאי שהוא צבאי"], "correct": 1, "ref": "", "exp": ""}, {"type": "mc", "text": "אחריותם של מי הוצאת הפחים מהמכלול?", "options": ["רמ״ש", "יושבי 1-5", "יושבי 5-9", "בבלי"], "correct": 2, "ref": "", "exp": ""}, {"type": "mc", "text": "מהו סכום האגרה שחברת תעופה צריכה לשלם עבור חציית המרחב הישראלי למטוס מעל 300,000 ק״ג?", "options": ["בערך 30 דולר", "בערך 300 דולר", "בערך 3000 דולר", "בערך 30,000 דולר"], "correct": 1, "ref": "AIP", "exp": ""}, {"type": "mc", "text": "איך נברר מה אורך וכיוון המסלול ברמת דוד?", "options": ["נשאל את ברוך", "נשאל את מרחבי", "נסתכל בAIP", "דאבל קליק על רמת דוד בATMAS ושם יש מסלולים, תדרים, עזרי ניווט ועוד"], "correct": 3, "ref": "אטמס", "exp": ""}, {"type": "mc", "text": "העברנו EST לחיפה אך נראה שהוא לא תואם את המצב בשטח. מתי נצטרך לעדכן את הודעת הEST?", "options": ["בסטיה של 2 דק׳ ומעלה", "בסטיה של 3 דק׳ ומעלה", "בסטיה של 4 דק׳ ומעלה", "בסטיה של 5 דק׳ ומעלה"], "correct": 1, "ref": "DOC 7030", "exp": ""}];
+
+let Qs=[...questions],cur=0,score=0,ans=false,sh=[];
+function sh2(a){return[...a].sort(()=>Math.random()-.5);}
+function startQ(){sh=sh2(Qs);cur=0;score=0;ans=false;showQ();}
+function showQ(){
+  const q=sh[cur];
+  document.getElementById('qc').textContent='שאלה '+(cur+1)+' מתוך '+sh.length;
+  document.getElementById('sc').textContent='ניקוד: '+score;
+  document.getElementById('pf').style.width=((cur+1)/sh.length*100)+'%';
+  document.getElementById('qb').textContent=q.type==='mc'?'MULTIPLE CHOICE':'נכון / לא נכון';
+  document.getElementById('qt').textContent=q.text;
+  document.getElementById('qr').textContent=q.ref?'מקור: '+q.ref:'';
+  document.getElementById('fb').className='fb';
+  document.getElementById('nx').className='nx';
+  ans=false;
+  const c=document.getElementById('oc');c.innerHTML='';
+  if(q.type==='mc'){
+    (q.options||[]).forEach((o,i)=>{
+      if(!o&&o!==0)return;
+      const b=document.createElement('button');
+      b.className='ob';
+      b.innerHTML='<span class="ok">'+['א','ב','ג','ד'][i]+'</span>'+o;
+      b.onclick=()=>ansMC(i);
+      c.appendChild(b);
+    });
+  } else {
+    const g=document.createElement('div');g.className='tg';
+    ['נכון','לא נכון'].forEach((l,i)=>{
+      const b=document.createElement('button');
+      b.className='tb2 '+(i===0?'tt':'tf');
+      b.textContent=l;b.onclick=()=>ansTF(i===0);
+      g.appendChild(b);
+    });
+    c.appendChild(g);
+  }
+}
+function ansMC(i){
+  if(ans)return;ans=true;
+  const q=sh[cur];
+  const bs=document.querySelectorAll('.ob');
+  bs.forEach(b=>b.disabled=true);
+  const ok=i===q.correct;
+  bs[i].classList.add(ok?'correct':'wrong');
+  if(!ok&&bs[q.correct])bs[q.correct].classList.add('rev');
+  if(ok)score++;
+  showFB(ok,q.exp);
+}
+function ansTF(v){
+  if(ans)return;ans=true;
+  const q=sh[cur];
+  const bs=document.querySelectorAll('.tb2');
+  bs.forEach(b=>b.disabled=true);
+  const ok=v===q.correct;
+  if(ok)score++;
+  (v?bs[0]:bs[1]).classList.add(ok?'correct':'wrong');
+  if(!ok)(q.correct?bs[0]:bs[1]).classList.add('correct');
+  showFB(ok,q.exp);
+}
+function showFB(ok,exp){
+  const fb=document.getElementById('fb');
+  fb.className='fb show '+(ok?'correct':'wrong');
+  fb.textContent=(ok?'✓ נכון! ':'✗ לא נכון. ')+(exp||'');
+  document.getElementById('nx').className='nx show';
+}
+function nextQ(){cur++;if(cur>=sh.length)showRes();else showQ();}
+function showRes(){
+  document.getElementById('qs').style.display='none';
+  document.getElementById('rs').style.display='block';
+  const p=Math.round(score/sh.length*100);
+  document.getElementById('rsc').textContent=p+'%';
+  const ms=[[0,'צריך לחזור על החומר...'],[40,'התחלה טובה'],[60,'סביר — יש מקום לשיפור'],[80,'כל הכבוד!'],[100,'מצוין! שליטה מלאה']];
+  let m=ms[0][1];for(const[t,msg] of ms){if(p>=t)m=msg;}
+  document.getElementById('rsm').textContent=m;
+}
+function restartQuiz(){
+  document.getElementById('rs').style.display='none';
+  document.getElementById('qs').style.display='block';
+  startQ();
+}
+function goQ(){
+  document.getElementById('n1').classList.add('on');document.getElementById('n2').classList.remove('on');
+  document.getElementById('qs').style.display='block';
+  document.getElementById('es').style.display='none';
+  document.getElementById('rs').style.display='none';
+  document.getElementById('pw').style.display='none';
+  startQ();
+}
+function goEG(){
+  document.getElementById('n2').classList.add('on');document.getElementById('n1').classList.remove('on');
+  document.getElementById('qs').style.display='none';
+  document.getElementById('rs').style.display='none';
+  document.getElementById('pw').style.display='block';
+  document.getElementById('es').style.display='none';
+  document.getElementById('pwi').value='';
+  document.getElementById('pwe').style.display='none';
+  setTimeout(()=>document.getElementById('pwi').focus(),100);
+}
+function chkPW(){
+  if(document.getElementById('pwi').value===PW){
+    document.getElementById('pw').style.display='none';
+    document.getElementById('es').style.display='block';
+    renderQL();
+  } else {
+    document.getElementById('pwe').style.display='block';
+    document.getElementById('pwi').value='';
+  }
+}
+function renderQL(){
+  document.getElementById('qcnt').textContent=Qs.length;
+  const l=document.getElementById('ql');l.innerHTML='';
+  Qs.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='qi';
+    d.innerHTML='<span class="tyb '+(q.type==='mc'?'mc-b':'tf-b')+'">'+(q.type==='mc'?'MC':'T/F')+'</span><span class="qit">'+q.text.substring(0,65)+(q.text.length>65?'...':'')+'</span><button class="db" onclick="delQ('+i+')">✕</button>';
+    l.appendChild(d);
+  });
+}
+function delQ(i){if(confirm('למחוק?')){Qs.splice(i,1);renderQL();}}
+function openM(){
+  document.getElementById('mtitle').textContent='הוספת שאלה';
+  document.getElementById('mtxt').value='';document.getElementById('mexp').value='';document.getElementById('mref').value='';
+  document.getElementById('mtype').value='mc';
+  document.querySelectorAll('.mi').forEach(x=>x.value='');
+  document.querySelectorAll('input[name=cor]').forEach(r=>r.checked=false);
+  togM();document.getElementById('mo').classList.add('open');
+}
+function closeM(){document.getElementById('mo').classList.remove('open');}
+function togM(){
+  const t=document.getElementById('mtype').value;
+  document.getElementById('mc-sec').style.display=t==='mc'?'block':'none';
+  document.getElementById('tf-sec').style.display=t==='tf'?'block':'none';
+}
+function saveQ(){
+  const type=document.getElementById('mtype').value;
+  const text=document.getElementById('mtxt').value.trim();
+  const exp=document.getElementById('mexp').value.trim();
+  const ref=document.getElementById('mref').value.trim();
+  if(!text){alert('יש להזין טקסט');return;}
+  let q={type,text,exp,ref};
+  if(type==='mc'){
+    const opts=[...document.querySelectorAll('.mi')].map(x=>x.value.trim());
+    if(opts.some(o=>!o)){alert('יש למלא את כל 4 התשובות');return;}
+    let cor=-1;document.querySelectorAll('input[name=cor]').forEach(r=>{if(r.checked)cor=parseInt(r.value);});
+    if(cor===-1){alert('יש לסמן תשובה נכונה');return;}
+    q.options=opts;q.correct=cor;
+  } else {
+    q.correct=document.getElementById('mtf').value==='true';
+  }
+  Qs.push(q);closeM();renderQL();
+}
+function expJ(){
+  const b=new Blob([JSON.stringify(Qs,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='atc_questions.json';a.click();
+}
+function impJ(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{const d=JSON.parse(ev.target.result);if(!Array.isArray(d)){alert('קובץ לא תקין');return;}Qs=d;renderQL();alert('יובאו '+d.length+' שאלות');}
+    catch{alert('שגיאה בקריאת הקובץ');}
+  };
+  r.readAsText(f);
+}
+function toggleTheme(){
+  const r=document.getElementById('root');
+  const d=r.dataset.theme==='dark';
+  r.dataset.theme=d?'light':'dark';
+  document.getElementById('tbtn').textContent=d?'☾':'☀';
+}
+document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='E'){e.preventDefault();goEG();}});
+startQ();
+</script>
