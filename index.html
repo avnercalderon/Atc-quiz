@@ -322,7 +322,8 @@
     </div>
     <script>
     const PW='acc2024';
-    const SHEET_ID='1j5U0MiyTr1MIw8WoclX0qEhFDveijl1M';
+    const SHEET_ID='1H0qiNQgTGVOGti8farwnMu5tYIcizn6UlszCXxcIv8s';
+    const SHEET_GID='1973672539';
 
     let ALL_Q=[];
 
@@ -351,7 +352,7 @@
     }
 
     function loadQuestions(){
-        const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
         fetch(url)
             .then(r=>r.text())
             .then(text=>{
@@ -435,7 +436,7 @@
     }
     function showQ(){
         const q=sh[cur];
-        document.getElementById('qc').textContent='שאלה '+(cur+1)+' מתוך '+sh.length;
+        document.getElementById('qc').textContent='שאלה '+(cur+1)+' מתוך '+sh.length+' | מאגר: '+ALL_Q.length+' שאלות';
         document.getElementById('sc').textContent='ניקוד: '+score;
         document.getElementById('pf').style.width=((cur+1)/sh.length*100)+'%';
         document.getElementById('qb').textContent=q.type==='mc'?'MULTIPLE CHOICE':'נכון / לא נכון';
